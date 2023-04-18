@@ -99,6 +99,62 @@ export default async function decorate(block) {
   if (resp.ok) {
     const html = await resp.text();
 
+    console.log(html);
+
+    $(block).append(`
+      <div class="row my-1">
+        <div class="col-9"></div>
+        <div class="col-1 d-grid">
+          <div class="dropdown">
+            <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              English
+            </button>
+            <ul class="dropdown-menu">
+              <li><div class="dropdown-item">STUFF HERE</div></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-2">
+          <input type="text" class="form-control form-control-sm" placeholder="Search AA.com®">
+        </div>
+      </div>
+      <div class="row my-2">
+        <div class="col-4">LOGO</div>
+        <div class="col-6">
+          <div class="dropdown btn-group">
+            <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              PLAN TRAVEL
+            </button>
+            <ul class="dropdown-menu">
+              <li><div class="dropdown-item">STUFF HERE</div></li>
+            </ul>
+          </div>
+          <div class="dropdown btn-group">
+            <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Travel Information
+            </button>
+            <ul class="dropdown-menu">
+              <li><div class="dropdown-item">STUFF HERE</div></li>
+            </ul>
+          </div>
+          <div class="dropdown btn-group">
+            <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            AAdvantage®
+            </button>
+            <ul class="dropdown-menu">
+              <li><div class="dropdown-item">STUFF HERE</div></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-1 d-grid">
+          <button type="button" class="btn btn-primary d-grid">LOGIN</button>
+        </div>
+        <div class="col-1 d-grid">
+          <button type="button" class="btn btn-light">JOIN</button>
+        </div>
+      </div>
+    `);
+    /*
     // decorate nav DOM
     const nav = document.createElement('nav');
     nav.id = 'nav';
@@ -142,5 +198,6 @@ export default async function decorate(block) {
     navWrapper.className = 'nav-wrapper';
     navWrapper.append(nav);
     block.append(navWrapper);
+    */
   }
 }

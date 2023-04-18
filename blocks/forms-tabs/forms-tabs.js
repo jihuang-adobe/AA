@@ -42,13 +42,13 @@ export default function decorate(block) {
       <ul class="nav nav-tabs nav-justified" role="tablist">
         {{#each items}}
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" role="tab" href="#{{uuid}}">{{this.tabname}}</a>
+          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#{{uuid}}" type="button" role="tab" aria-controls="{{uuid}}">{{this.tabname}}</button>
         </li>
         {{/each}}
       </ul>
       <div class="tab-content">
         {{#each items}}
-        <div class="tab-pane fade" role="tabpanel" aria-labelledby="{{uuid}}">
+        <div class="tab-pane fade" id="{{uuid}} role="tabpanel">
           <form class="row">
             {{#each formjson.data}}
             <div class="col-md-4">
