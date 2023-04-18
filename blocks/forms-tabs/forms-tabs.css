@@ -1,0 +1,27 @@
+.forms-tabs-wrapper {
+  display: none;
+}
+
+.forms-tabs {
+  padding: 0px 80px;
+  position: relative;
+  top: -240px;
+}
+
+.nav-tabs .nav-item {
+  background-color: #d0dae0;
+}
+
+.nav-tabs .active {
+  background-color: #FFFFFF;
+}
+
+.tab-content {
+  background-color: #FFFFFF;
+  padding: 20px;
+}
+
+.tab-content .form-label {
+  font-size: 16px;
+}
+

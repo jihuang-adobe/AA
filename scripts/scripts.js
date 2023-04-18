@@ -53,7 +53,7 @@ export function decorateMain(main) {
   // hopefully forward compatible button decoration
   decorateButtons(main);
   decorateIcons(main);
-  buildAutoBlocks(main);
+  //buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
 }
@@ -89,6 +89,36 @@ export function addFavIcon(href) {
     document.getElementsByTagName('head')[0].appendChild(link);
   }
 }
+
+/**
+ * helper function to convert HTML to a DOM
+ * @param {string} template handlebars HTML template
+ * @param {string} contentJSON content in JSON format
+ */
+export function convertToDOM(template, contentJSON) {
+  var template = Handlebars.compile(template);
+  var d = document.createElement('div');
+  d.innerHTML = template(contentJSON);
+  return d.children[0];
+}
+
+/**
+ * helper function to generate uuid
+ */
+export function generateUUID() {
+  return Date.now().toString(36) + Math.random().toString(36).substr(2);
+}
+
+/**
+ * handlebars ifvalue custom function
+ */
+Handlebars.registerHelper("ifvalue", function(conditional, options) {
+  if (conditional == options.hash.equals) {
+      return options.fn(this);
+  } else {
+      return options.inverse(this);
+  }
+});
 
 /**
  * Loads everything that doesn't need to be delayed.
