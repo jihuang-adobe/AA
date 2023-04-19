@@ -46,9 +46,9 @@ export default function decorate(block) {
         </li>
         {{/each}}
       </ul>
-      <div class="tab-content">
+      <div class="tab-content border-bottom">
         {{#each items}}
-        <div class="tab-pane fade" id="{{uuid}} role="tabpanel">
+        <div class="tab-pane fade" id="{{uuid}}" role="tabpanel">
           <form class="row">
             {{#each formjson.data}}
             <div class="col-md-4">
@@ -68,14 +68,21 @@ export default function decorate(block) {
                 <label class="form-label">{{Label}}</label>
                 <select class="form-select"">
                   {{#each Options}}
-                  <option selected>{{value}}</option>
+                  {{#ifvalue ../Placeholder equals=this}}
+                    <option selected>{{this}}</option>
+                  {{/ifvalue}}
+                  <option>{{this}}</option>
                   {{/each}}
                 </select>
               {{/ifvalue}}
             </div>
             {{/each}}
           </form>
-          {{{additionrawhtml}}}
+          <div class="row pt-2">
+            <div class="col">
+              {{{additionrawhtml}}}
+            </div>
+          </div>
         </div>
         {{/each}}
       </div>

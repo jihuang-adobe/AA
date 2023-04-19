@@ -2,10 +2,14 @@
   display: none;
 }
 
+.carousel-container.forms-tabs-container {
+  position: relative;
+}
+
 .forms-tabs {
   padding: 0px 80px;
-  position: relative;
-  top: -240px;
+  position: absolute;
+  top: 450px;
 }
 
 .nav-tabs .nav-item {
