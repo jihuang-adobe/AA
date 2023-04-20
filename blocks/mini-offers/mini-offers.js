@@ -4,7 +4,6 @@ export default function decorate(block) {
   var templateJSON = {
     items: []
   };
-  console.log(block)
 
   $(block).find('>div').each(function(){
     var objectJSON = {
@@ -17,8 +16,6 @@ export default function decorate(block) {
 
     templateJSON.items.push(objectJSON);
   });
-
-  console.log(templateJSON);
 
   var template = `
     <div class="row my-5">
