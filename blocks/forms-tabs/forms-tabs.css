@@ -1,31 +1,15 @@
 .forms-tabs-wrapper {
-  display: none;
-}
-
-.carousel-container.forms-tabs-container {
   position: relative;
 }
 
 .forms-tabs {
-  padding: 0px 80px;
-  position: absolute;
-  top: 450px;
+  display: none;
 }
 
-.nav-tabs .nav-item {
-  background-color: #d0dae0;
-}
-
-.nav-tabs .active {
-  background-color: #FFFFFF;
-}
-
-.tab-content {
-  background-color: #FFFFFF;
-  padding: 20px;
+.tabs-forms-absolute {
+  top: -240px;
 }
 
 .tab-content .form-label {
   font-size: 16px;
 }
-

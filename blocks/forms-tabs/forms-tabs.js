@@ -38,53 +38,55 @@ export default function decorate(block) {
   });
 
   var template = `
-    <div class="forms-tabs">
-      <ul class="nav nav-tabs nav-justified" role="tablist">
-        {{#each items}}
-        <li class="nav-item">
-          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#{{uuid}}" type="button" role="tab" aria-controls="{{uuid}}">{{this.tabname}}</button>
-        </li>
-        {{/each}}
-      </ul>
-      <div class="tab-content border-bottom">
-        {{#each items}}
-        <div class="tab-pane fade" id="{{uuid}}" role="tabpanel">
-          <form class="row">
-            {{#each formjson.data}}
-            <div class="col-md-4">
-              {{#ifvalue Type equals="submit"}}
-                <label class="form-label">&nbsp;</label>
-                <button type="{{Type}}" class="form-control btn btn-primary mt-0">{{Label}}</button>
-              {{/ifvalue}}
-              {{#ifvalue Type equals="text"}}
-                <label class="form-label">{{Label}}</label>
-                <input type="{{Type}}" class="form-control" placeholder="{{Placeholder}}">
-              {{/ifvalue}}
-              {{#ifvalue Type equals="date"}}
-                <label class="form-label">{{Label}}</label>
-                <input type="{{Type}}" class="form-control" placeholder="{{Placeholder}}">
-              {{/ifvalue}}              
-              {{#ifvalue Type equals="select"}}
-                <label class="form-label">{{Label}}</label>
-                <select class="form-select"">
-                  {{#each Options}}
-                  {{#ifvalue ../Placeholder equals=this}}
-                    <option selected>{{this}}</option>
-                  {{/ifvalue}}
-                  <option>{{this}}</option>
-                  {{/each}}
-                </select>
-              {{/ifvalue}}
-            </div>
-            {{/each}}
-          </form>
-          <div class="row pt-2">
-            <div class="col">
-              {{{additionrawhtml}}}
+    <div class="container row justify-content-center position-absolute tabs-forms-absolute">
+      <div class="col-10">
+        <ul class="nav nav-tabs nav-justified" role="tablist">
+          {{#each items}}
+          <li class="nav-item bg-light">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#{{uuid}}" type="button" role="tab" aria-controls="{{uuid}}">{{this.tabname}}</button>
+          </li>
+          {{/each}}
+        </ul>
+        <div class="tab-content border-bottom bg-white p-3">
+          {{#each items}}
+          <div class="tab-pane fade" id="{{uuid}}" role="tabpanel">
+            <form class="row">
+              {{#each formjson.data}}
+              <div class="col-md-4">
+                {{#ifvalue Type equals="submit"}}
+                  <label class="form-label">&nbsp;</label>
+                  <button type="{{Type}}" class="form-control btn btn-primary mt-0">{{Label}}</button>
+                {{/ifvalue}}
+                {{#ifvalue Type equals="text"}}
+                  <label class="form-label">{{Label}}</label>
+                  <input type="{{Type}}" class="form-control" placeholder="{{Placeholder}}">
+                {{/ifvalue}}
+                {{#ifvalue Type equals="date"}}
+                  <label class="form-label">{{Label}}</label>
+                  <input type="{{Type}}" class="form-control" placeholder="{{Placeholder}}">
+                {{/ifvalue}}              
+                {{#ifvalue Type equals="select"}}
+                  <label class="form-label">{{Label}}</label>
+                  <select class="form-select"">
+                    {{#each Options}}
+                    {{#ifvalue ../Placeholder equals=this}}
+                      <option selected>{{this}}</option>
+                    {{/ifvalue}}
+                    <option>{{this}}</option>
+                    {{/each}}
+                  </select>
+                {{/ifvalue}}
+              </div>
+              {{/each}}
+            </form>
+            <div class="row pt-2">
+              <div class="col-12">
+                {{{additionrawhtml}}}
+              </div>
             </div>
           </div>
+          {{/each}}
         </div>
-        {{/each}}
       </div>
     </div>
   `;
@@ -92,8 +94,8 @@ export default function decorate(block) {
   // initialize
   var DOM = convertToDOM(template, templateJSON);
 
-  $(DOM).find('.nav-item:first').addClass('active');
+  $(DOM).find('.nav-item .nav-link:first').addClass('active');
   $(DOM).find('.tab-pane:first').addClass('active').addClass('show');
   
-  $(block).closest('.section').append(DOM);
+  $(block).after(DOM);
 }

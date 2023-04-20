@@ -6,12 +6,12 @@ export default function decorate(block) {
     'items': []
   };
 
-  $(block).find('picture img').each(function(){
+  $(block).find('>div').each(function(){
     templateJSON.items.push({
-      'src': $(this).attr('src'),
-      'alt': $(this).alt
+      'src': $(this).find('picture:first source[type="image/webp"]:first').attr('srcset')
     });
   });
+
 
   var template = `
     <div id="{{uuid}}" class="carousel slide" data-bs-ride="carousel">
@@ -37,5 +37,5 @@ export default function decorate(block) {
 
     $(DOM).find('.carousel-item:first').addClass('active');
 
-    $(block).closest('.section').append(DOM);
+    $(block).after(DOM);
 }
