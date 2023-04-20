@@ -2,7 +2,7 @@ import { convertToDOM, generateUUID } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
   var templateJSON = {};
-console.log(block)
+
   $(block).find('>div').each(function(){
     templateJSON.image = {
       url: $(this).find('div:nth-child(1) picture:first source[type="image/webp"]:first').attr('srcset')
@@ -14,8 +14,6 @@ console.log(block)
 
     templateJSON.textrawhtml = $(this).find('div:nth-child(2)').html();
   });
-
-  console.log(templateJSON);
 
   var template = `
     <div class="row align-items-center bg-primary">

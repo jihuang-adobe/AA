@@ -71,8 +71,9 @@ export default function decorate(block) {
                     {{#each Options}}
                     {{#ifvalue ../Placeholder equals=this}}
                       <option selected>{{this}}</option>
+                    {{else}}
+                      <option>{{this}}</option>
                     {{/ifvalue}}
-                    <option>{{this}}</option>
                     {{/each}}
                   </select>
                 {{/ifvalue}}
