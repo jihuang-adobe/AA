@@ -53,9 +53,8 @@ export default async function decorate(block) {
     
     const template = `
       <div>
-        <div class="row my-1">
-          <div class="col-9"></div>
-          <div class="col-1 d-grid">
+        <div class="row justify-content-end my-1">
+          <div class="col-sm-4 d-grid">
             <div class="dropdown">
               <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{#each languages}}
@@ -67,12 +66,12 @@ export default async function decorate(block) {
               </ul>
             </div>
           </div>
-          <div class="col-2">
+          <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" placeholder="{{search.placeholder}}">
           </div>
         </div>
         <div class="row my-2" id="accordionnav">
-          <div class="col-3">
+          <div class="col-lg-3">
             <img src="{{logo.url}}" class="img-fluid" />
           </div>
           <div class="col-1">
