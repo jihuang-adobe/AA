@@ -54,7 +54,7 @@ export default async function decorate(block) {
     const template = `
       <div>
         <div class="row justify-content-end my-1">
-          <div class="col-sm-4 d-grid">
+          <div class="col-3 col-md-2 col-lg-1 d-grid">
             <div class="dropdown">
               <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{#each languages}}
@@ -66,25 +66,27 @@ export default async function decorate(block) {
               </ul>
             </div>
           </div>
-          <div class="col-sm-4">
+          <div class="col-9 col-md-4 col-lg-2">
             <input type="text" class="form-control form-control-sm" placeholder="{{search.placeholder}}">
           </div>
         </div>
         <div class="row my-2" id="accordionnav">
-          <div class="col-lg-3">
+          <div class="col-12 col-md-3 col-lg-3">
             <img src="{{logo.url}}" class="img-fluid" />
           </div>
-          <div class="col-1">
-          </div>
-          <div class="col-6">
+          <div class="col-12 col-md-7 col-lg-7 justify-content-center d-flex">
+            <ul class="nav nav-pills">
             {{#each navigations}}
-            <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#{{uuid}}" aria-controls="{{uuid}}" aria-expanded="false">{{navtitle}}</button>
+            <li class="nav-item">
+              <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#{{uuid}}" aria-controls="{{uuid}}" aria-expanded="false">{{navtitle}}</button>
+            </li>
             {{/each}}
+            </ul>
           </div>
-          <div class="col-1 d-grid">
+          <div class="col-6 col-md-1 d-grid">
             <button type="button" class="btn btn-primary">LOGIN</button>
           </div>
-          <div class="col-1 d-grid">
+          <div class="col-6 col-md-1 d-grid">
             <button type="button" class="btn btn-light">JOIN</button>
           </div>
           {{#each navigations}}

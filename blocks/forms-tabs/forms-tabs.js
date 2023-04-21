@@ -38,8 +38,8 @@ export default function decorate(block) {
   });
 
   var template = `
-    <div class="container row justify-content-center position-absolute tabs-forms-absolute">
-      <div class="col-10">
+    <div class="container row justify-content-center tabs-forms-absolute">
+      <div class="col-12 col-sm-10">
         <ul class="nav nav-tabs nav-justified" role="tablist">
           {{#each items}}
           <li class="nav-item bg-light">
@@ -52,7 +52,7 @@ export default function decorate(block) {
           <div class="tab-pane fade" id="{{uuid}}" role="tabpanel">
             <form class="row">
               {{#each formjson.data}}
-              <div class="col-md-4">
+              <div class="col-12 col-md-4">
                 {{#ifvalue Type equals="submit"}}
                   <label class="form-label">&nbsp;</label>
                   <button type="{{Type}}" class="form-control btn btn-primary mt-0">{{Label}}</button>

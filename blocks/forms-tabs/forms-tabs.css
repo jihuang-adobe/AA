@@ -5,9 +5,11 @@
 .forms-tabs {
   display: none;
 }
-
-.tabs-forms-absolute {
-  top: -240px;
+@media (min-width:960px) {
+  .tabs-forms-absolute {
+    top: -240px;
+    position: absolute;
+  }
 }
 
 .tab-content .form-label {
