@@ -72,7 +72,7 @@ export default async function decorate(block) {
         </div>
         <div class="row my-2" id="accordionnav">
           <div class="col-12 col-md-3 col-lg-3">
-            <img src="{{logo.url}}" class="img-fluid" />
+            <a href="/"><img src="{{logo.url}}" class="img-fluid" /></a>
           </div>
           <div class="col-12 col-md-7 col-lg-7 justify-content-center d-flex">
             <ul class="nav nav-pills">
