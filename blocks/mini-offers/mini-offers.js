@@ -20,7 +20,7 @@ export default function decorate(block) {
   var template = `
     <div class="row my-5">
       {{#each items}}
-      <div class="col-4">
+      <div class="col-12 col-md-4">
         <div class="row">
           <div class="col-12">
             <h3>{{title}}</h3>

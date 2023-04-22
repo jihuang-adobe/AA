@@ -17,10 +17,10 @@ export default function decorate(block) {
 
   var template = `
     <div class="row align-items-center bg-primary">
-      <div class="col-8 gx-0">
+      <div class="col-12 col-md-8 gx-0">
         <img class="w-100" src="{{image.url}}" />
       </div>
-      <div class="col-4 text-light">
+      <div class="col-12 col-md-4 text-light">
         {{{textrawhtml}}}
       </div>
     </div>
