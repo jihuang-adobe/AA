@@ -10,6 +10,7 @@ export default function decorate(block) {
 
     if($(this).text()) {
       var offersJSONURL = $(this).find('a:first').attr('href');
+      var filterType = $(this).find('div:nth-child(2)').text();
 
       // get headless form json
       if(offersJSONURL) {
@@ -34,28 +35,34 @@ export default function decorate(block) {
           });
 
           offersJSON.data[index].Links = linksArray;
+
+          if(this.Type == filterType) {
+            templateJSON.items.push(offersJSON.data[index]);
+          }
         });
       }
-
-      templateJSON.items.push(offersJSON);
     }
   });
-
-  console.log(templateJSON);
 
   var template = `
     <div class="row my-5">
       {{#each items}}
-      <div class="col-4">
+      <div class="col-12 col-md-4">
         <div class="row">
           <div class="col-12">
-            <h3>{{title}}</h3>
+            <h3>{{Title}}</h3>
           </div>
-          {{#if image.url}}
-          <img class="col" src="{{image.url}}" />
+          {{#if [Image Urls]}}
+          <img class="col" src="{{[Image Urls]}}" />
           {{/if}}
           <div class="col">
-            {{{descriptionrawhtml}}}
+            {{[Teaser Text]}}
+
+            {{#each Links}}
+            <p>
+              <a href="{{linkurl}}" title="{{linkname}}" class="button primary">{{linkname}}</a>
+            </p>
+            {{/each}}
           </div>
         </div>
       </div>
