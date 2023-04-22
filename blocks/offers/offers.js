@@ -45,7 +45,7 @@ export default function decorate(block) {
   });
 
   var template = `
-    <div class="row my-5">
+    <div class="row py-3 my-3 border-top">
       {{#each items}}
       <div class="col-12 col-md-4">
         <div class="row">
@@ -53,9 +53,9 @@ export default function decorate(block) {
             <h3>{{Title}}</h3>
           </div>
           {{#if [Image Urls]}}
-          <img class="col" src="{{[Image Urls]}}" />
+          <img class="col-12" src="{{[Image Urls]}}" />
           {{/if}}
-          <div class="col">
+          <div class="col-12">
             {{[Teaser Text]}}
 
             {{#each Links}}

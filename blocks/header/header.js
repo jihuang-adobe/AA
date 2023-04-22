@@ -52,7 +52,7 @@ export default async function decorate(block) {
     });
     
     const template = `
-      <div>
+      <div class="pb-1 border-bottom">
         <div class="row justify-content-end my-1">
           <div class="col-3 col-md-2 col-lg-1 d-grid">
             <div class="dropdown">
