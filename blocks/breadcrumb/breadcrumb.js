@@ -20,7 +20,7 @@ export default function decorate(block) {
         {{#each items}}
         <li class="breadcrumb-item">
           {{#if url}}
-          <a href="url">{{name}}</a>
+          <a href="{{url}}">{{name}}</a>
           {{else}}
           {{name}}
           {{/if}}
