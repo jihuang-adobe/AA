@@ -155,7 +155,7 @@ function loadDelayed() {
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
-  loadDelayed();
+  //loadDelayed();
 }
 
 loadPage();

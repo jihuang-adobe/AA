@@ -1,28 +1,11 @@
 import { convertToDOM, generateUUID } from '../../scripts/scripts.js';
 
-export default function decorate(block) {
+export default async function decorate(block) {
   var templateJSON = {'items': []};
 
   $(block).find('>div').each(function(){
     if($(this).text()) {
-      var formJSONURL = $(this).find('div:nth-child(2) a').attr('href');
-      var formJSON;
       var additionTextDOM = $(this).find('div:nth-child(3)');
-
-    
-      // get headless form json
-      if(formJSONURL) {
-        formJSON = JSON.parse($.ajax({
-          type: "GET",
-          url: formJSONURL,
-          async: false
-        }).responseText);
-  
-        // turn csv options into array
-        $.each(formJSON.data, function(index){
-          formJSON.data[index].Options = this.Options.split(',');
-        });
-      }
 
       // clean crap class that franklin adds
       additionTextDOM.find('.button.primary').attr('class', '');
@@ -31,11 +14,21 @@ export default function decorate(block) {
       templateJSON.items.push({
         uuid: generateUUID(),
         tabname: $(this).find('div:nth-child(1)').text(),
-        formjson: formJSON,
+        formjsonurl: $(this).find('div:nth-child(2) a').attr('href'),
+        formjson: null,
         additionrawhtml: additionTextDOM.html()
       });
-    }
+    };
   });
+  
+  for (const [index, val] of templateJSON.items.entries()) {
+    const formjson = await $.ajax({
+      type: "GET",
+      url: val.formjsonurl
+    });
+
+    templateJSON.items[index].formjson = formjson;
+  }
 
   var template = `
     <div class="container row justify-content-center tabs-forms-absolute">
