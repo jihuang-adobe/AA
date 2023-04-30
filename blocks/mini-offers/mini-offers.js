@@ -26,7 +26,7 @@ export default async function decorate(block) {
             <h3>{{title}}</h3>
           </div>
           {{#if image.url}}
-          <img class="col" data-src="{{image.url}}" />
+          <img class="col lazy" data-src="{{image.url}}" />
           {{/if}}
           <div class="col">
             {{{descriptionrawhtml}}}
