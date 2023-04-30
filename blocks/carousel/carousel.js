@@ -1,6 +1,6 @@
 import { convertToDOM, generateUUID } from '../../scripts/scripts.js';
 
-export default function decorate(block) {
+export default async function decorate(block) {
   var templateJSON = {
     'uuid': generateUUID(),
     'items': []
