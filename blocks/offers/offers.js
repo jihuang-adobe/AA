@@ -53,7 +53,7 @@ export default async function decorate(block) {
             <h3>{{Title}}</h3>
           </div>
           {{#if [Image Urls]}}
-          <img class="col-12" src="{{[Image Urls]}}" />
+          <img class="col-12" data-src="{{[Image Urls]}}" />
           {{/if}}
           <div class="col-12">
             {{[Teaser Text]}}

@@ -18,7 +18,7 @@ export default async function decorate(block) {
   var template = `
     <div class="row align-items-center bg-primary">
       <div class="col-12 col-md-8 gx-0">
-        <img class="w-100" src="{{image.url}}" />
+        <img class="w-100" data-src="{{image.url}}" />
       </div>
       <div class="col-12 col-md-4 text-light">
         {{{textrawhtml}}}

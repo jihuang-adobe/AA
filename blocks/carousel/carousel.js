@@ -18,7 +18,7 @@ export default async function decorate(block) {
       <div class="carousel-inner">
         {{#each items}}
         <div class="carousel-item">
-          <img src="{{this.src}} lazy" class="d-block w-100" alt="{{this.alt}}">
+          <img data-src="{{this.src}} lazy" class="d-block w-100" alt="{{this.alt}}">
         </div>
         {{/each}}
       </div>
