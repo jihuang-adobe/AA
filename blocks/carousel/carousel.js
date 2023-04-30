@@ -38,4 +38,6 @@ export default async function decorate(block) {
     $(DOM).find('.carousel-item:first').addClass('active');
 
     $(block).after(DOM);
+
+    $(DOM).find('.lazy').lazy();
 }

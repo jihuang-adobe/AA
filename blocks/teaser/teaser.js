@@ -30,4 +30,6 @@ export default async function decorate(block) {
   var DOM = convertToDOM(template, templateJSON);
 
   $(block).closest('.section').append(DOM);
+
+  $(DOM).find('.lazy').lazy();
 }
