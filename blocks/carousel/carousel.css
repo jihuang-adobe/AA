@@ -1,7 +1,8 @@
-.carousel.block {
-  display: none;
-}
-
 .carousel-control-next, .carousel-control-prev {
   width: 5%;
+}
+
+.carousel-inner .carousel-item img {
+  height: auto;
+  width: 100%;
 }

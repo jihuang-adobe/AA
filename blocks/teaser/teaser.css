@@ -1,7 +1,4 @@
-.teaser-wrapper {
-  display: none;
-}
-
-.teaser-container {
-  margin-top: 100px;
+.teaser picture img {
+  height: auto;
+  width: 100%;
 }

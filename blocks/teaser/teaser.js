@@ -1,35 +1,15 @@
-import { convertToDOM, generateUUID } from '../../scripts/scripts.js';
-
 export default async function decorate(block) {
-  var templateJSON = {};
+  block.classList.add('container');
 
-  $(block).find('>div').each(function(){
-    templateJSON.image = {
-      url: $(this).find('div:nth-child(1) picture:first source[type="image/webp"]:first').attr('srcset')
-    };
+  block.children[0].classList.add('row', 'align-items-center', 'bg-primary');
 
-    // add some classes to the button dom
-    $(this).find('.button-container').addClass('d-grid');
-    $(this).find('.button-container a.button').addClass('btn btn-light');
+  block.children[0].children[0].classList.add('col-12', 'col-md-8', 'gx-0');
+  block.children[0].children[1].classList.add('col-12', 'col-md-4', 'text-light');
 
-    templateJSON.textrawhtml = $(this).find('div:nth-child(2)').html();
-  });
-
-  var template = `
-    <div class="row align-items-center bg-primary">
-      <div class="col-12 col-md-8 gx-0">
-        <img class="w-100 lazy" data-src="{{image.url}}" />
-      </div>
-      <div class="col-12 col-md-4 text-light">
-        {{{textrawhtml}}}
-      </div>
-    </div>
-  `;
-
-  // initialize
-  var DOM = convertToDOM(template, templateJSON);
-
-  $(block).closest('.section').append(DOM);
-
-  $(DOM).find('.lazy').lazy();
+  const anchor = block.children[0].children[1].querySelector('a');
+  if(anchor) {
+    anchor.classList.add('btn', 'btn-light');
+    console.log(anchor.parentNode);
+    anchor.parentNode.classList.add('d-grid');
+  }
 }

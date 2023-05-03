@@ -2,13 +2,14 @@
   position: relative;
 }
 
-.forms-tabs {
-  display: none;
-}
 @media (min-width:960px) {
   .tabs-forms-absolute {
     top: -240px;
     position: absolute;
+  }
+
+  .forms-tabs {
+    min-height: 130px;
   }
 }
 
