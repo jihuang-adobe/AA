@@ -9,7 +9,6 @@ export default async function decorate(block) {
   const anchor = block.children[0].children[1].querySelector('a');
   if(anchor) {
     anchor.classList.add('btn', 'btn-light');
-    console.log(anchor.parentNode);
     anchor.parentNode.classList.add('d-grid');
   }
 }

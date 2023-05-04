@@ -1,78 +1,75 @@
-import { convertToDOM, generateUUID } from '../../scripts/scripts.js';
-
 export default async function decorate(block) {
-  var templateJSON = {
-    items: []
-  };
+  const row = block.children[0];
 
-  $(block).find('>div').each(function(){
-    var offersJSON;
+  if(row) {
+    const offersJSONNode = row.children[0].querySelector('a');
+    const filter = row.children[1].textContent;
 
-    if($(this).text()) {
-      var offersJSONURL = $(this).find('a:first').attr('href');
-      var filterType = $(this).find('div:nth-child(2)').text();
+    if(offersJSONNode) {
+      const response = await fetch(offersJSONNode.href);
 
-      // get headless form json
-      if(offersJSONURL) {
-        offersJSON = JSON.parse($.ajax({
-          type: "GET",
-          url: offersJSONURL,
-          async: false
-        }).responseText);
+      if (response.ok) {
+        const offers = await response.json();
 
-        // turn csv options into array
-        $.each(offersJSON.data, function(index){
-          var links = this.Links.split('\n');
-          var linksArray = [];
+        const div = document.createElement('div');
+        div.classList.add('row', 'py-3', 'my-3');
+  
+        offers.data.forEach((offer) => {
+          if(offer.Type == filter) {
+            const offerMain = document.createElement('div');
+            offerMain.classList.add('col-12', 'col-md-4');
+            offerMain.innerHTML = `
+              <div class="row">
+              </div>
+            `;
+  
+            const offerMainRow = offerMain.querySelector('.row');
+  
+            offerMainRow.innerHTML += `
+              <div class="col-12">
+                <h3>${offer.Title}</h3>
+              </div>
+            `;
 
-          $.each(links, function(){
-            var linkNameValue = this.split(';')
+            if(offer['Image Urls']) {
+              offerMainRow.innerHTML += `
+                <img class="col-12 img-fluid" src="${offer['Image Urls']}" />
+              `;
+            }
 
-            linksArray.push({
-              linkname: $.trim(linkNameValue[0]),
-              linkurl: $.trim(linkNameValue[1])
+            const LinkValuePairs = offer['Links'].split('\n').map(function(item) {
+              return item.trim();
             });
-          });
 
-          offersJSON.data[index].Links = linksArray;
+            var links = '';
+            LinkValuePairs.forEach((LinkValuePair) => {
+              const LinkNameValue = LinkValuePair.split(';').map(function(item) {
+                return item.trim();
+              });
 
-          if(this.Type == filterType) {
-            templateJSON.items.push(offersJSON.data[index]);
+              if(LinkNameValue.length == 2) {
+                links += `
+                  <p>
+                    <a href="${LinkNameValue[1]}" title="${LinkNameValue[0]}" class="button primary">${LinkNameValue[0]}</a>
+                  </p>
+                `;
+              }
+            });
+
+            offerMainRow.innerHTML += `
+              <div class="col-12">
+                ${offer['Teaser Text']}
+                ${links}
+              </div>
+            `;
+            
+            div.append(offerMain);
           }
         });
-      }
+
+        row.innerHTML = '';
+        row.append(div);
+      };
     }
-  });
-
-  var template = `
-    <div class="row py-3 my-3 border-top">
-      {{#each items}}
-      <div class="col-12 col-md-4">
-        <div class="row">
-          <div class="col-12">
-            <h3>{{Title}}</h3>
-          </div>
-          {{#if [Image Urls]}}
-          <img class="col-12 lazy" data-src="{{[Image Urls]}}" />
-          {{/if}}
-          <div class="col-12">
-            {{[Teaser Text]}}
-
-            {{#each Links}}
-            <p>
-              <a href="{{linkurl}}" title="{{linkname}}" class="button primary">{{linkname}}</a>
-            </p>
-            {{/each}}
-          </div>
-        </div>
-      </div>
-      {{/each}}
-    </div>
-  `;
-  // initialize
-  var DOM = convertToDOM(template, templateJSON);
-
-  $(block).closest('.section').append(DOM);
-
-  $(DOM).find('.lazy').lazy();
+  }
 }
