@@ -1,5 +1,5 @@
 import { getMetadata, decorateIcons } from '../../scripts/lib-franklin.js';
-import { convertToDOM, generateUUID } from '../../scripts/scripts.js';
+import { generateUUID } from '../../scripts/scripts.js';
 
 /**
  * decorates the header, mainly the nav
