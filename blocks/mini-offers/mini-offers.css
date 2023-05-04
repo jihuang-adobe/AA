@@ -1,3 +1,4 @@
-.mini-offers {
-  display: none;
+.mini-offers picture img {
+  height: auto;
+  width: 100%;
 }

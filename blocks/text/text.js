@@ -1,4 +1,9 @@
 export default async function decorate(block) {
-  $(block).find('h2').addClass('text-primary');
-  $(block).find('h3').addClass('text-success');
+  block.querySelectorAll('h2').forEach((item) => {
+    item.classList.add('text-primary');
+  });
+
+  block.querySelectorAll('h3').forEach((item) => {
+    item.classList.add('text-success');
+  });
 }

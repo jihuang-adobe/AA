@@ -6,6 +6,7 @@ import { convertToDOM, generateUUID } from '../../scripts/scripts.js';
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
+  /*
   // fetch nav content
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta).pathname : '/nav';
@@ -107,4 +108,5 @@ export default async function decorate(block) {
 
     $(block).append(DOM);
   }
+  */
 }
