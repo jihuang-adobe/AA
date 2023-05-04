@@ -1,5 +1,3 @@
-import { convertToDOM, generateUUID } from '../../scripts/scripts.js';
-
 export default async function decorate(block) {
   block.classList.add('row');
 
