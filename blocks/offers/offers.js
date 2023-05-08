@@ -25,11 +25,18 @@ export default async function decorate(block) {
   
             const offerMainRow = offerMain.querySelector('.row');
   
-            offerMainRow.innerHTML += `
-              <div class="col-12">
-                <h3>${offer.Title}</h3>
-              </div>
-            `;
+            if(offer.Title) {
+              offerMainRow.innerHTML += `
+                <div class="col-12">
+                  <h3>${offer.Title}</h3>
+                </div>
+              `;
+            } else {
+              offerMainRow.innerHTML += `
+                <div class="col-12">
+                </div>
+              `;
+            }
 
             if(offer['Image Urls']) {
               offerMainRow.innerHTML += `
