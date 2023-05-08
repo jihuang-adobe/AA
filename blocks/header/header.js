@@ -1,112 +1,150 @@
-import { getMetadata, decorateIcons } from '../../scripts/lib-franklin.js';
+import { getMetadata } from '../../scripts/lib-franklin.js';
 import { generateUUID } from '../../scripts/scripts.js';
+
+function renderBlock(block) {
+  const accordionIds = [];
+
+  if(!block.classList.contains('container')) {
+    block.classList.add('container');
+
+    [...block.children].forEach((row, rowIndex) => {
+
+      if(rowIndex == 0) {
+        row.classList.add('row', 'justify-content-end', 'my-1');
+
+        [...row.children].forEach((col, colIndex) => {
+          if(colIndex == 0) {
+            col.classList.add('col-3', 'col-md-2', 'col-lg-1', 'd-grid');
+            const colText = col.innerText;
+            col.innerHTML = `
+            <div class="dropdown">
+              <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                ${colText}
+              </button>
+              <ul class="dropdown-menu">
+                <li><div class="dropdown-item">MORE CONTENT</div></li>
+              </ul>
+            </div>
+            `;
+          } else {
+            col.classList.add('col-9', 'col-md-4', 'col-lg-2');
+            const colText = col.innerText;
+            col.innerHTML = `
+              <input type="text" class="form-control form-control-sm" placeholder="${colText}">
+            `;
+          }
+        });
+      }
+
+      if(rowIndex == 1) {
+        row.classList.add('row', 'my-2', 'pb-2', 'border-bottom');
+        row.id = 'accordionnav';
+
+        [...row.children].forEach((col, colIndex) => {
+          if(colIndex == 0) {
+            col.classList.add('col-12', 'col-md-3', 'col-lg-3');
+
+            const picture = col.querySelector('picture');
+            if(picture) {
+              picture.querySelector('img').classList.add('img-fluid');
+
+              const anchor = document.createElement('a');
+              anchor.href = '/';
+              anchor.append(picture);
+
+              col.append(anchor);
+            }
+          }
+
+          if(colIndex == 1) {
+            col.classList.add('col-12', 'col-md-7', 'col-lg-7', 'justify-content-center', 'd-flex');
+
+            const ul = col.querySelector('ul');
+
+            if(ul) {
+              ul.classList.add('nav', 'nav-pills');
+              
+              [...ul.children].forEach((li) => {
+                const accordionId = generateUUID();
+                accordionIds.push(accordionId);
+                const liText = li.innerText;
+
+                const button = document.createElement('button');
+                button.classList.add('btn');
+                button.type = 'button';
+                button.setAttribute('data-bs-toggle', 'collapse');
+                button.setAttribute('data-bs-target', '#' + accordionId);
+                button.setAttribute('aria-controls', accordionId);
+                button.setAttribute('aria-expanded', 'false');
+                button.innerText = liText;
+
+                li.innerHTML = '';
+                li.append(button);
+              });
+            }
+          }
+
+          if(colIndex == 2) {
+            col.classList.add('col-12', 'col-md-2');
+
+            const ul = col.querySelector('ul');
+
+            if(ul) {
+              ul.classList.add('nav', 'nav-pills', 'd-flex');
+
+              [...ul.children].forEach((li) => {
+                li.classList.add('flex-fill', 'text-center');
+
+                [...li.children].forEach((liItem) => {
+                  liItem.classList.add('btn', 'btn-primary');
+                });
+              });
+            }
+          }
+
+
+        });
+      }
+
+      if(rowIndex >= 2) {
+        row.id = accordionIds.pop();
+        row.classList.add('row');
+        row.classList.add('accordion-collapse', 'collapse');
+        row.setAttribute('data-bs-parent', '#accordionnav');
+        row.setAttribute('aria-controls', row.id);
+        row.setAttribute('aria-expanded', 'false');
+
+        [...row.children].forEach((col, colIndex) => {
+          col.classList.add('col-3');
+        });
+      }
+    });
+  }
+}
 
 /**
  * decorates the header, mainly the nav
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  /*
   // fetch nav content
-  const navMeta = getMetadata('nav');
-  const navPath = navMeta ? new URL(navMeta).pathname : '/nav';
-  const resp = await fetch(`${navPath}.plain.html`);
+  const navPath = getMetadata('nav');
 
-  if (resp.ok) {
-    const html = await resp.text();
+  if(navPath) {
+    const resp = await fetch(`${navPath}.plain.html`);
 
-    const headerDOM = $.parseHTML(html);
+    if (resp.ok) {
+      const header = document.createElement('div');
+      header.innerHTML = await resp.text();
 
-    var templateJSON = {};
+      const headerSection = header.querySelector('.header');
+      
+      renderBlock(headerSection);
 
-    templateJSON.languages = [];
-
-    $(headerDOM).find('.languages > div').each(function(){
-      templateJSON.languages.push($.trim($(this).text()));
-    });
-
-    templateJSON.search = {
-      placeholder: $.trim($(headerDOM).find('.search > div').text())
-    };
-
-    templateJSON.logo = {
-      url: $(headerDOM).find('.logo picture:first source[type="image/webp"]:first').attr('srcset')
-    };
-
-    templateJSON.navigations = [];
-
-    $(headerDOM).find('.navigation > div').each(function(){
-      // add some classes to the dom first
-      $(this).find('div p a').addClass('text-decoration-none');
-      $(this).find('div:nth-child(3) p').addClass('border-bottom pb-1 px-1 mb-1');
-      $(this).find('div:nth-child(4) p').addClass('border-bottom pb-1 px-1 mb-1');
-      $(this).find('div:nth-child(5) p').addClass('pb-1 px-1 mb-1 text-decoration-none');
-
-      templateJSON.navigations.push({
-        uuid: generateUUID(),
-        navtitle: $.trim($(this).find('div:nth-child(1)').text()),
-        firstcolumnrawhtml: $(this).find('div:nth-child(2)').html(),
-        secondcolumnrawhtml: $(this).find('div:nth-child(3)').html(),
-        thirdcolumnrawhtml: $(this).find('div:nth-child(4)').html(),
-        fourthcolumnrawhtml: $(this).find('div:nth-child(5)').html(),
-      });
-    });
-    
-    const template = `
-      <div class="pb-1 border-bottom">
-        <div class="row justify-content-end my-1">
-          <div class="col-3 col-md-2 col-lg-1 d-grid">
-            <div class="dropdown">
-              <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {{#each languages}}
-                  {{this}}
-                {{/each}}
-              </button>
-              <ul class="dropdown-menu">
-                <li><div class="dropdown-item">STUFF HERE</div></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-9 col-md-4 col-lg-2">
-            <input type="text" class="form-control form-control-sm" placeholder="{{search.placeholder}}">
-          </div>
-        </div>
-        <div class="row my-2" id="accordionnav">
-          <div class="col-12 col-md-3 col-lg-3">
-            <a href="/"><img src="{{logo.url}}" class="img-fluid" /></a>
-          </div>
-          <div class="col-12 col-md-7 col-lg-7 justify-content-center d-flex">
-            <ul class="nav nav-pills">
-            {{#each navigations}}
-            <li class="nav-item">
-              <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#{{uuid}}" aria-controls="{{uuid}}" aria-expanded="false">{{navtitle}}</button>
-            </li>
-            {{/each}}
-            </ul>
-          </div>
-          <div class="col-6 col-md-1 d-grid">
-            <button type="button" class="btn btn-primary">LOGIN</button>
-          </div>
-          <div class="col-6 col-md-1 d-grid">
-            <button type="button" class="btn btn-light">JOIN</button>
-          </div>
-          {{#each navigations}}
-          <div class="col-12 accordion-collapse collapse" data-bs-parent="#accordionnav" id="{{uuid}}">
-            <div class="row mt-2 pt-2 border-top">
-              <div class="col-3">{{{firstcolumnrawhtml}}}</div>
-              <div class="col-3">{{{secondcolumnrawhtml}}}</div>
-              <div class="col-3">{{{thirdcolumnrawhtml}}}</div>
-              <div class="col-3">{{{fourthcolumnrawhtml}}}</div>
-            </div>
-          </div>
-          {{/each}}
-        </div>
-      </div>
-    `;
-
-    var DOM = convertToDOM(template, templateJSON);
-
-    $(block).append(DOM);
+      block.innerHTML = '';
+      block.append(...headerSection.children);
+    }
+  } else {
+    renderBlock(block);
   }
-  */
 }
