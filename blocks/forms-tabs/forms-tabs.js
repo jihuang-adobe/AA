@@ -73,9 +73,9 @@ export default async function decorate(block) {
   const tabPanes = block.children[1];
   const additiontabPanes = block.children[2];
 
-  tabs.classList.add('col-10', 'p-0');
-  tabPanes.classList.add('tab-content', 'border-bottom', 'bg-white', 'p-3', 'col-10');
-  additiontabPanes.classList.add('col-10');
+  tabs.classList.add('col-12', 'col-md-10', 'p-0');
+  tabPanes.classList.add('tab-content', 'border-bottom', 'bg-white', 'p-3', 'col-12', 'col-md-10');
+  additiontabPanes.classList.add('col-12', 'col-md-10');
 
   const tabsNav = document.createElement('div');
   tabsNav.classList.add('nav', 'nav-tabs', 'nav-justified', 'bg-light');

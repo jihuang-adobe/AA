@@ -1,3 +1,7 @@
+.forms-tabs.block:not([data-block-status="loaded"]) {
+  display: none;
+}
+
 .forms-tabs-wrapper {
   position: relative;
 }
