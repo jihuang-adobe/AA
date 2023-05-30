@@ -14,18 +14,26 @@ function renderBlock(block) {
 
         [...row.children].forEach((col, colIndex) => {
           if(colIndex == 0) {
-            col.classList.add('col-3', 'col-md-2', 'col-lg-1', 'd-grid');
-            const colText = col.innerText;
-            col.innerHTML = `
-            <div class="dropdown">
-              <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                ${colText}
-              </button>
-              <ul class="dropdown-menu">
-                <li><div class="dropdown-item">MORE CONTENT</div></li>
-              </ul>
-            </div>
-            `;
+            col.classList.add('col-3', 'col-md-2', 'col-lg-2', 'd-grid');
+
+            const dropdown = document.createElement('div');
+            dropdown.classList.add('dropdown');
+
+            dropdown.append(...col.children);
+            col.append(dropdown);
+
+            const topElement = dropdown.querySelector('p');
+            topElement.classList.add('btn', 'btn-sm', 'dropdown-toggle');
+            topElement.setAttribute('data-bs-toggle', 'dropdown');
+            topElement.setAttribute('aria-expanded', 'false');
+
+            const topUL = dropdown.querySelector('ul');
+            topUL.classList.add('dropdown-menu');
+
+            const LIs = dropdown.querySelectorAll('li');
+            [...LIs].forEach((li, colIndex) => {
+              li.classList.add('dropdown-item');
+            });
           } else {
             col.classList.add('col-9', 'col-md-4', 'col-lg-2');
             const colText = col.innerText;
